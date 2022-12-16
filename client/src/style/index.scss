@@ -1,0 +1,18 @@
+// Actually here you export the UI settings
+
+@import "./base/variables.scss";
+
+
+// Also the components      --> al the secundary must start with "_"
+
+@import "./_components/chat/chat"; // you can export without having to put the "_" but if u you it also works
+@import "./_components/register/register";
+@import "./_components/landing/landing";
+@import "./_components/nav/nav.scss";
+//Also the Screens
+body { 
+min-height: 100vh;
+margin: 0px;
+font-family: 'Montserrat', sans-serif;
+font-weight: 500;
+ }

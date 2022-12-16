@@ -1,0 +1,91 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background: rgb(171, 48, 48);
+  background: linear-gradient(
+    260deg,
+    rgba(171, 48, 48, 1) 0%,
+    rgba(124, 65, 93, 1) 36%,
+    rgba(43, 94, 170, 1) 68%
+  );
+  .form {
+    background: #181818;
+    padding: 2rem;
+    opacity: 0.8;
+    width: 33rem;
+    border: 1px solid opacify($color: #000000, $amount: 0.9);
+    border-radius: 6px;
+    height: 42rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+
+    h2 {
+      color: #fff;
+      text-align: center;
+    }
+    .bubbleChat{
+      width: 75%;
+      display: flex;
+      justify-content: space-evenly;
+      &.login{
+        margin-top: 3.5rem;
+      }
+    }
+    .input-container {
+      height: 80%;
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4rem;
+  
+      input {
+        outline: none;
+        padding: 5px;
+        height: 32px;
+        border-radius: 20px;
+        color: whitesmoke;
+        border: 2px solid #6b9ebf;
+        background-color: transparent;
+        text-align: center;
+        font-size: 24px;
+        transition: all 0.25s ease-in;
+        &::placeholder{
+          font-size: 16px;
+        }
+        &:focus{
+          border: 2px solid #44c069;
+        }
+      }
+    }
+  }
+  .btn-reg {
+    padding: 12px;
+    width: 9rem;
+    border-radius: 15px;
+    border: 2px solid  #458fc0;
+    background-color: #d1d1d1;
+    transition: all 0.17s ease-in;
+    &:active{
+     background:  #44c069;
+    }
+  }
+  span{
+    font-size: 18px;
+    color:#44c069;
+    &.log{
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+  a{
+    color:#458fc0;
+  }
+}

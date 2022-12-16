@@ -1,0 +1,47 @@
+.div-container {
+  background: linear-gradient(
+    260deg,
+    rgba(171, 48, 48, 1) 0%,
+    rgba(124, 65, 93, 1) 36%,
+    rgba(43, 94, 170, 1) 68%
+  );
+  height: 100vh;
+  width: 100vw;
+  h1 {
+    text-align: center;
+    color: whitesmoke;
+    text-decoration: underline;
+    margin-top: 4rem;
+  }
+  .content {
+    color: whitesmoke;
+    display: flex;
+    margin: 8%;
+    gap: 200px;
+    .text-container {
+      height: 50vh;
+      width: 50%;
+      h2{
+        text-align: center;
+        font-weight: 600;
+      }
+    }
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      background: #181818;
+      opacity: 0.9;
+      width: 50%;
+      padding: 20px;
+      p{
+        text-align: center;
+      }
+      img {
+        width: 40%;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

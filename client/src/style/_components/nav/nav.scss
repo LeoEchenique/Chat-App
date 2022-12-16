@@ -1,0 +1,39 @@
+
+.nav-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #181818;
+    height: 11vh;
+    
+.ul-nav{
+    width: max-content;    
+    display: flex;
+    padding-right: 3rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6rem;
+    list-style: none;
+    
+    li{
+        color: whitesmoke;
+        cursor: pointer;
+    }
+}
+.img-container{
+    height: 11.5rem;
+   width: fit-content;
+    display: flex;
+    align-items: center;
+    img{
+        cursor: pointer;
+        width: 15rem;
+        object-fit: contain;
+        object-fit:cover;
+        
+       // margin-left: -45px;
+    }
+}
+
+}
