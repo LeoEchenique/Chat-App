@@ -3,9 +3,9 @@ import Nav from "../components/Nav";
 import { useState } from "react";
 import FormItem from "../components/FormIitem";
 import logoCard from "../assets/logo-chat.png";
-function Register() {
+function Register({props}) {
 
-  const [log,setLog]= useState(true)
+  const [log,setLog]= useState(props)
   const [form,setForm]= useState({})
 
   const handleChange=(e)=>{
@@ -14,7 +14,6 @@ function Register() {
       [e.target.name]: e.target.value
     })
   }
-
   const handleSubmit= (e)=>{
     e.preventDefault()
     console.log(form)
@@ -25,7 +24,7 @@ function Register() {
     {
       log === false ? 
       <>
-    <Nav props={["Home", "Sign in", "About"]} />
+    <Nav props={[{li:"Home", redirect:"/"},{li: "About", redirect: "/about"}]} />
     <div className="form-container">
       <form className="form" onSubmit={(e)=>handleSubmit(e)} onChange={(e)=> handleChange(e)}>
         <h2>Register to chat with your people from all over the world</h2>
@@ -43,13 +42,13 @@ function Register() {
       </div>
         <button type="submit" className="btn-reg">Go to chat</button>
         
-      <span>Already register? <span className="log" onClick={()=> setLog(true)}>LOGIN</span> </span>
+      <span>Already register? <span className="log" onClick={()=> setLog(!log)}>LOGIN</span> </span>
       </form>
           </div>  
           </>
     : 
     <>
-    <Nav props={["Home", "Sign up", "Chat room", "About"]} />
+    <Nav props={[{li:"Home", redirect:"/"},{li: "About", redirect: "/about"}]} />
     <div className="form-container">
       <form className="form" onSubmit={(e)=>handleSubmit(e)} onChange={(e)=> handleChange(e)}>
         <h2>Sign in to chat with your people from all over the world</h2>

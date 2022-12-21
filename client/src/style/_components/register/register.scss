@@ -72,8 +72,9 @@
     border-radius: 15px;
     border: 2px solid  #458fc0;
     background-color: #d1d1d1;
-    transition: all 0.17s ease-in;
-    &:active{
+    transition: all 0.17s ease-in-out;
+    &:hover{
+      border: 2px solid transparent;
      background:  #44c069;
     }
   }
@@ -87,5 +88,15 @@
   }
   a{
     color:#458fc0;
+  }
+
+  @include mq(620px){
+    height: 100vh;
+      .form{
+        width: 80%;
+      }
+    
+   
+
   }
 }

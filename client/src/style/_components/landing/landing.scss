@@ -44,4 +44,27 @@
       }
     }
   }
+
+  @include mq(1200px){
+
+    height: max-content;
+    .content{
+      flex-direction: column;
+      gap: 0px;
+      align-items: center;
+      justify-content: space-between;
+      width: 90%;
+      height: 100vh;
+      margin: auto;      
+      .text-container{
+        width: fit-content;
+        height: fit-content;
+      }
+      .card-container{
+        width: 90%;
+        margin-bottom: 3rem;
+      }
+    }
+  
+  }
 }

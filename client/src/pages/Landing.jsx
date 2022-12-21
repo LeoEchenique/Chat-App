@@ -5,7 +5,7 @@ import img from "../assets/chat-img.webp";
 function Landing() {
   return (
     <div className="div-container">
-      <Nav props={["Sign in", "Sign up"]} />
+      <Nav props={[{li:"Sign in", redirect: "/sign"}, {li:"Sign up", redirect: "/register"}]} />
       <h1>Sign in to chat with your people!</h1>
       <div className="content">
         <div className="text-container">
