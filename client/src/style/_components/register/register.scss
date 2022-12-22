@@ -12,6 +12,7 @@
     rgba(124, 65, 93, 1) 36%,
     rgba(43, 94, 170, 1) 68%
   );
+
   .form {
     background: #181818;
     padding: 2rem;
@@ -30,11 +31,11 @@
       color: #fff;
       text-align: center;
     }
-    .bubbleChat{
+    .bubbleChat {
       width: 75%;
       display: flex;
       justify-content: space-evenly;
-      &.login{
+      &.login {
         margin-top: 3.5rem;
       }
     }
@@ -45,7 +46,7 @@
       flex-direction: column;
       justify-content: center;
       gap: 4rem;
-  
+
       input {
         outline: none;
         padding: 5px;
@@ -56,11 +57,14 @@
         background-color: transparent;
         text-align: center;
         font-size: 24px;
-        transition: all 0.25s ease-in;
-        &::placeholder{
+        transition: all 0.1s ease-in;
+
+        &::placeholder {
+          font-family: "Montserrat", sans-serif;
+          font-weight: 500;
           font-size: 16px;
         }
-        &:focus{
+        &:focus {
           border: 2px solid #44c069;
         }
       }
@@ -70,33 +74,45 @@
     padding: 12px;
     width: 9rem;
     border-radius: 15px;
-    border: 2px solid  #458fc0;
-    background-color: #d1d1d1;
+    border: 2px solid #458fc0;
+    background-color: whitesmoke;
     transition: all 0.17s ease-in-out;
-    &:hover{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    &:hover {
       border: 2px solid transparent;
-     background:  #44c069;
+      background: #44c069;
     }
   }
-  span{
+  span {
     font-size: 18px;
-    color:#44c069;
-    &.log{
+    color: #44c069;
+    &.log {
       cursor: pointer;
       text-decoration: underline;
     }
   }
-  a{
-    color:#458fc0;
+  a {
+    color: #458fc0;
   }
 
-  @include mq(620px){
-    height: 100vh;
-      .form{
-        width: 80%;
-      }
-    
-   
-
+  @include mq(620px) {
+    opacity: 1;
+    .form {
+      opacity: 1;
+      width: 80%;
+      background-color: transparent;
+      border: none;
+    }
+  }
+  @include mq() {
+    height: 110vh;
+    margin: 0px;
+    .form {
+      opacity: 1;
+      width: 80%;
+      background-color: transparent;
+      height: fit-content;
+    }
   }
 }

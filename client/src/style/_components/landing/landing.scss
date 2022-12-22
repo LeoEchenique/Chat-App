@@ -1,3 +1,6 @@
+
+
+
 .div-container {
   background: linear-gradient(
     260deg,
@@ -5,7 +8,8 @@
     rgba(124, 65, 93, 1) 36%,
     rgba(43, 94, 170, 1) 68%
   );
-  height: 100vh;
+  display: inline-block;
+  height: 101vh;
   width: 100vw;
   h1 {
     text-align: center;
@@ -18,13 +22,11 @@
     display: flex;
     margin: 8%;
     gap: 200px;
+  
     .text-container {
-      height: 50vh;
       width: 50%;
-      h2{
         text-align: center;
-        font-weight: 600;
-      }
+        font-weight: 400;
     }
     .card-container {
       display: flex;
@@ -47,14 +49,14 @@
 
   @include mq(1200px){
 
-    height: max-content;
+    height: fit-content;
+
     .content{
       flex-direction: column;
       gap: 0px;
       align-items: center;
       justify-content: space-between;
       width: 90%;
-      height: 100vh;
       margin: auto;      
       .text-container{
         width: fit-content;
@@ -68,3 +70,4 @@
   
   }
 }
+
