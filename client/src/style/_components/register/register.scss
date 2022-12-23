@@ -3,7 +3,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%  ;
   width: 100%;
   background: rgb(171, 48, 48);
   background: linear-gradient(
@@ -103,6 +104,7 @@
       width: 80%;
       background-color: transparent;
       border: none;
+      
     }
   }
   @include mq() {
@@ -114,5 +116,11 @@
       background-color: transparent;
       height: fit-content;
     }
+  }
+  @include mq(1200px){
+  .form{
+    margin-top: 2rem;
+  }    
+
   }
 }
