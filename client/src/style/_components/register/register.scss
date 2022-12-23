@@ -21,7 +21,8 @@
     width: 33rem;
     border: 1px solid opacify($color: #000000, $amount: 0.9);
     border-radius: 6px;
-    height: 42rem;
+    height: 50rem;
+    min-height: min-content;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -46,8 +47,13 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 4rem;
+      gap: 2rem;
 
+      p{
+        margin-top: -25px;
+        font-weight: 600;
+        color: rgb(139, 30, 30);
+      }
       input {
         outline: none;
         padding: 5px;
@@ -99,12 +105,15 @@
 
   @include mq(620px) {
     opacity: 1;
+      overflow-y: scroll;
+      padding-top: 20px;
     .form {
       opacity: 1;
       width: 80%;
       background-color: transparent;
       border: none;
-      
+  
+      margin-top: 8rem;
     }
   }
   @include mq() {
