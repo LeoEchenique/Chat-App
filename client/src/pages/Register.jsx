@@ -1,14 +1,16 @@
 import React from "react";
+import axios from "axios";
 import Nav from "../components/Nav";
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import FormItem from "../components/FormIitem";
 import logoCard from "../assets/logo-chat.png";
 import { logginSchema, signUpSchema } from "../utils/logginSchema";
-import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 function Register({ props }) {
   const [log, setLog] = useState(props);
+  const navigate = useNavigate();
 
   const initialSignIn = {
     username: "",
@@ -36,12 +38,14 @@ function Register({ props }) {
               key={"1"}
               initialValues={initialSignUp}
               validationSchema={signUpSchema}
-              onSubmit={(values, actions) => {
-                console.log(values);
+              onSubmit={async (values, actions) => {
+                await axios
+                  .post("http://localhost:3001/log/register", values)
+                  .then((res) => (res.status === 200 ? navigate("/") : null));
                 actions.resetForm();
               }}
             >
-              {({ handleChange, handleReset, values, errors }) => (
+              {({ handleChange, values, errors, touched }) => (
                 <Form className="form">
                   <h2>
                     Register to chat with your people from all over the world
@@ -62,7 +66,9 @@ function Register({ props }) {
                         onChange: handleChange,
                       }}
                     />
-                    {errors.username ? <p>{errors.username}</p> : null}
+                    {touched.username && errors.username ? (
+                      <p>{errors.username}</p>
+                    ) : null}
                   </div>
                   <div className="input-container">
                     <FormItem
@@ -74,7 +80,9 @@ function Register({ props }) {
                         onChange: handleChange,
                       }}
                     />
-                    {errors.email ? <p>{errors.email}</p> : null}
+                    {touched.email && errors.email ? (
+                      <p>{errors.email}</p>
+                    ) : null}
                   </div>
                   <div className="input-container">
                     <FormItem
@@ -86,7 +94,9 @@ function Register({ props }) {
                         onChange: handleChange,
                       }}
                     />
-                    {errors.password ? <p>{errors.password}</p> : null}
+                    {touched.password && errors.password ? (
+                      <p>{errors.password}</p>
+                    ) : null}
                   </div>
 
                   <div className="input-container">
@@ -99,7 +109,9 @@ function Register({ props }) {
                         onChange: handleChange,
                       }}
                     />
-                    {errors.confirmPass ? <p>{errors.confirmPass}</p> : null}
+                    {touched.password && errors.confirmPass ? (
+                      <p>{errors.confirmPass}</p>
+                    ) : null}
                   </div>
                   <button type="submit" className="btn-reg">
                     Go to chat
@@ -134,7 +146,7 @@ function Register({ props }) {
                 actions.resetForm();
               }}
             >
-              {({ handleChange, values, errors }) => (
+              {({ handleChange, values, errors, touched }) => (
                 <Form className="form">
                   <h2>
                     Sign in to chat with your people from all over the world
@@ -154,7 +166,9 @@ function Register({ props }) {
                         onChange: handleChange,
                       }}
                     />
-                    {errors.username ? <p>{errors.username}</p> : null}
+                    {touched.username && errors.username ? (
+                      <p>{errors.username}</p>
+                    ) : null}
                   </div>
                   <div className="input-container login">
                     <FormItem
@@ -166,7 +180,9 @@ function Register({ props }) {
                         onChange: handleChange,
                       }}
                     />
-                    {errors.password ? <p>{errors.password}</p> : null}
+                    {touched.password && errors.password ? (
+                      <p>{errors.password}</p>
+                    ) : null}
                   </div>
                   <div className="bubbleChat">
                     <img src={logoCard} alt="bubbleChat" />
