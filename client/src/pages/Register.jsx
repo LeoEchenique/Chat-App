@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 function Register({ props }) {
   const [log, setLog] = useState(props);
+
   const navigate = useNavigate();
 
   const initialSignIn = {
@@ -41,7 +42,9 @@ function Register({ props }) {
               onSubmit={async (values, actions) => {
                 await axios
                   .post("http://localhost:3001/log/register", values)
-                  .then((res) => (res.status === 200 ? navigate("/") : null));
+                  .then((res) =>
+                    res.status === 200 ? navigate("/chat") : null
+                  );
                 actions.resetForm();
               }}
             >
@@ -55,7 +58,6 @@ function Register({ props }) {
                     <img src={logoCard} alt="bubbleChat" />
                     <img src={logoCard} alt="bubbleChat" />
                   </div>
-
                   <div className="input-container">
                     <FormItem
                       props={{
@@ -98,7 +100,6 @@ function Register({ props }) {
                       <p>{errors.password}</p>
                     ) : null}
                   </div>
-
                   <div className="input-container">
                     <FormItem
                       props={{
@@ -116,7 +117,6 @@ function Register({ props }) {
                   <button type="submit" className="btn-reg">
                     Go to chat
                   </button>
-
                   <span>
                     Already register?{" "}
                     <span className="log" onClick={() => setLog(!log)}>
@@ -209,3 +209,33 @@ function Register({ props }) {
 }
 
 export default Register;
+
+/* ramdon avatar img:
+
+
+import { AvatarGenerator } from "random-avatar-generator";
+  const [avatar, setAvatar] = useState([]);
+  const generator = new AvatarGenerator();
+  const generateAvatar = () => {
+    let i = 0;
+    let imgs = [];
+    while (i < 4) {
+      imgs.push(generator.generateRandomAvatar());
+
+      i++;
+    }
+
+    setAvatar(imgs);
+  };
+  
+     <button onClick={() => generateAvatar()}>go</button>
+            <div>
+              {avatar?.length
+                ? avatar.map((avatar, i) => (
+                    <img src={avatar} key={i} alt="img" />
+                  ))
+                : null}
+            </div>
+            
+            
+            */

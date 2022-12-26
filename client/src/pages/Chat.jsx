@@ -1,9 +1,16 @@
-import React from 'react'
-
+import React from "react";
+import Nav from "../components/Nav";
 function Chat() {
   return (
-    <div>Chat</div>
-  )
+    <div className="chat-container">
+      <Nav
+        props={[
+          { li: "Home", redirect: "/" },
+          { li: "About", redirect: "/about" },
+        ]}
+      />
+    </div>
+  );
 }
 
-export default Chat
+export default Chat;
