@@ -20,6 +20,19 @@ const userSchema = new mongoose.Schema({
     required: true,
     min: 5,
   },
+  isAvatarSet: {
+    type: Boolean,
+    default: false
+  },
+  avatarImage: {
+    type: String,
+    default: "No image attached"
+  },
+  contacts: [{
+    contact_id: String,
+    hasSendMessages: Boolean,
+  }]
+
 });
 
 module.exports = mongoose.model("User", userSchema);

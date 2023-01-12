@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 function Register({ props }) {
   const [log, setLog] = useState(props);
-
+  const [failRegister, setFailRegister]= useState(false)
   const navigate = useNavigate();
 
   const initialSignIn = {
@@ -43,8 +43,8 @@ function Register({ props }) {
                 await axios
                   .post("http://localhost:3001/log/register", values)
                   .then((res) =>
-                    res.status === 200 ? navigate("/chat") : null
-                  );
+                    res.status === 200 ? navigate("/chat") : setFailRegister(res.body)
+                  ).catch(res=> console.log(res) );
                 actions.resetForm();
               }}
             >
@@ -53,6 +53,8 @@ function Register({ props }) {
                   <h2>
                     Register to chat with your people from all over the world
                   </h2>
+                  {failRegister ? <p>{failRegister}</p> : null}
+                 
                   <div className="bubbleChat">
                     <img src={logoCard} alt="bubbleChat" />
                     <img src={logoCard} alt="bubbleChat" />

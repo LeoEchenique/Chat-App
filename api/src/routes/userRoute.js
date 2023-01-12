@@ -9,9 +9,11 @@ router.post("/register", async (req, res) => {
   const { username, password, email } = req.body;
   try {
     let user = await usertCtrl.post(username, password, email);
+    console.log("user", user)
     res.send(user);
   } catch (error) {
-    res.status(409).send(error.message);
+    console.log("yaz")
+    res.status(402).send(error.message);
   }
 });
 

@@ -13,8 +13,15 @@ const comparePassword = async (password, inputPassword) => {
 module.exports = {
   post: async (username, passwordTBhash, email) => {
     const password = await encryptPassword(passwordTBhash);
-
     try {
+      let tbFound = await User.findOne({
+        $or: [{ username }, { email },]
+      })
+      if (tbFound !== null) {
+        if (tbFound.username === username && tbFound.email === email) throw new Error("Username and Email already taken");
+        if (tbFound.email === email) throw new Error("Email already taken");
+        if (tbFound.username === username) throw new Error("Username already taken");
+      }
       let user = await User.create({
         username,
         email,
@@ -22,7 +29,7 @@ module.exports = {
       });
       return user;
     } catch (error) {
-      throw new Error("Username or Email already ocuppied");
+      throw new Error(error.message);
     }
   },
 };
