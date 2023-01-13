@@ -12,7 +12,8 @@ router.post("/register", async (req, res) => {
     let user = await usertCtrl.postUser(username, password, email);
     res.send(user);
   } catch (error) {
-    res.status(409).send(error.message);
+    console.log("yaz");
+    res.status(402).send(error.message);
   }
 });
 
