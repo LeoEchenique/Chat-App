@@ -11,7 +11,7 @@ const comparePassword = async (password, inputPassword) => {
 };
 
 module.exports = {
-  post: async (username, passwordTBhash, email) => {
+  postUser: async (username, passwordTBhash, email) => {
     const password = await encryptPassword(passwordTBhash);
 
     try {
@@ -24,5 +24,9 @@ module.exports = {
     } catch (error) {
       throw new Error("Username or Email already ocuppied");
     }
+  },
+  postAvatar: async (avatar, id) => {
+    let user = await User.findOneAndUpdate(id, avatar, { new: true });
+    return user;
   },
 };

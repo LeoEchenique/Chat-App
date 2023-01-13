@@ -43,7 +43,8 @@ function Register({ props }) {
                 await axios
                   .post("http://localhost:3001/log/register", values)
                   .then((res) =>
-                    res.status === 200 ? navigate("/chat") : null
+                    /* setLocalStorage to obtain the id in avatar component */
+                    res.status === 200 ? navigate("/avatar") : null
                   );
                 actions.resetForm();
               }}
@@ -209,33 +210,3 @@ function Register({ props }) {
 }
 
 export default Register;
-
-/* ramdon avatar img:
-
-
-import { AvatarGenerator } from "random-avatar-generator";
-  const [avatar, setAvatar] = useState([]);
-  const generator = new AvatarGenerator();
-  const generateAvatar = () => {
-    let i = 0;
-    let imgs = [];
-    while (i < 4) {
-      imgs.push(generator.generateRandomAvatar());
-
-      i++;
-    }
-
-    setAvatar(imgs);
-  };
-  
-     <button onClick={() => generateAvatar()}>go</button>
-            <div>
-              {avatar?.length
-                ? avatar.map((avatar, i) => (
-                    <img src={avatar} key={i} alt="img" />
-                  ))
-                : null}
-            </div>
-            
-            
-            */

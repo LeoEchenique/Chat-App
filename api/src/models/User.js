@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     min: 5,
   },
+  avatar: {
+    type: String,
+    default: "No avatar choosen",
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);

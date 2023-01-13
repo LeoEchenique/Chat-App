@@ -7,9 +7,20 @@ router.get("/", (req, res) => {
 
 router.post("/register", async (req, res) => {
   const { username, password, email } = req.body;
+
   try {
-    let user = await usertCtrl.post(username, password, email);
+    let user = await usertCtrl.postUser(username, password, email);
     res.send(user);
+  } catch (error) {
+    res.status(409).send(error.message);
+  }
+});
+
+router.post("/register/avatar", async (req, res) => {
+  let { avatar, id } = req.body;
+  try {
+    let user = await usertCtrl.postAvatar(avatar, id);
+    return res.send(user);
   } catch (error) {
     res.status(409).send(error.message);
   }

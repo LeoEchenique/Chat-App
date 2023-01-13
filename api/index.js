@@ -2,18 +2,13 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const app = express();
-const userRouter = require("./src/routes/userRoute");
-
+const routes = require("./src/routes/index");
 require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("HI THERE!");
-});
-
-app.use("/log", userRouter);
+app.use("/", routes);
 
 mongoose
   .connect(process.env.MONGO_URL, {
