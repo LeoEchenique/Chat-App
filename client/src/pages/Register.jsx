@@ -44,6 +44,7 @@ function Register({ props }) {
                   .post("http://localhost:3001/log/register", values)
                   .then((res) =>
                     /* setLocalStorage to obtain the id in avatar component */
+                    /* another axios PUT req must be made to update "isOnline" property */
                     res.status === 200 ? navigate("/avatar") : null
                   );
                 actions.resetForm();
