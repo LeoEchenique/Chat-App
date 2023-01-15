@@ -7,7 +7,7 @@ import FormItem from "../components/FormIitem";
 import logoCard from "../assets/logo-chat.png";
 import { logginSchema, signUpSchema } from "../utils/logginSchema";
 import { useNavigate } from "react-router-dom";
-
+import { instance } from "../instance/instance";
 function Register({ props }) {
   const [log, setLog] = useState(props);
 
@@ -40,13 +40,17 @@ function Register({ props }) {
               initialValues={initialSignUp}
               validationSchema={signUpSchema}
               onSubmit={async (values, actions) => {
-                await axios
-                  .post("http://localhost:3001/log/register", values)
-                  .then((res) =>
-                    /* setLocalStorage to obtain the id in avatar component */
-                    /* another axios PUT req must be made to update "isOnline" property */
-                    res.status === 200 ? navigate("/avatar") : null
-                  );
+                await axios.post(`${instance}/log/register`, values).then(
+                  (res) => {
+                    console.log();
+                    return res.status === 200
+                      ? navigate(`/avatar/${res.data._id}`)
+                      : null;
+                  }
+                  // handleLog(res.data)
+                  /* setLocalStorage to obtain the id in avatar component */
+                  /* another axios PUT req must be made to update "isOnline" property */
+                );
                 actions.resetForm();
               }}
             >
@@ -117,7 +121,7 @@ function Register({ props }) {
                     ) : null}
                   </div>
                   <button type="submit" className="btn-reg">
-                    Go to chat
+                    Select avatar
                   </button>
                   <span>
                     Already register?{" "}
@@ -192,7 +196,7 @@ function Register({ props }) {
                     <img src={logoCard} alt="bubbleChat" />
                   </div>
                   <button type="submit" className="btn-reg">
-                    Go to chat
+                    Select avatar
                   </button>
                   <span>
                     Don't have an account?{" "}

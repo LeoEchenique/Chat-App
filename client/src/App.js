@@ -15,7 +15,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/sign" element={<Register props={true} />} />
           <Route path="/register" element={<Register props={false} />} />
-          <Route path="/avatar" element={<Avatar props={true} />} />
+          <Route path="/avatar/:id" element={<Avatar props={true} />} />
           <Route path="/about" element={<About />} />
           <Route path="/chat" element={<Chat />} />
         </Routes>

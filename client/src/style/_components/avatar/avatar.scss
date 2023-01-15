@@ -6,27 +6,70 @@
         rgb(99, 47, 71) 36%,
         rgb(59, 77, 102) 68%
       );
-      display: inline-block;
+  
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-direction: column;
+      margin: auto;
       height: 100vh;
+      max-height: 100%;
       width: 100vw;
-    img{
-        transition: all 0.4s ease-out;
-        cursor: pointer;
-        &:hover{
-            transform: scaleY(1.035);
-            transform: scaleX(1.035);
+
+     .title-avatar{
+   
+        h1{
+            text-decoration: underline;
+            color:rgb(209, 207, 207);
         }
-    }
-    .hide{
+        
+      }
+     
+      .img-container{
+        width: fit-content;
+        object-fit: contain;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        img{
+            transition: all 0.4s ease-out;
+            cursor: pointer;
+            &:hover{
+                transform: scaleY(1.035);
+                transform: scaleX(1.035);
+                filter: drop-shadow(0px 2px 0.35rem rgb(32, 204, 55));
+            }
+        }
+      }
+      .hide{
         opacity: 0;
         transition: all 1s step-end;
         &.show{
             cursor: pointer;
             opacity: 1;
         }
+    } 
+      .btn-reg {
+        padding: 12px;
+        width: 9rem;
+        border-radius: 15px;
+        border: none;
+        background-color: whitesmoke;
+        transition: all 0.17s ease-in-out;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 400;
+        &:hover {
+          background: #44c069;
+        }
+      }
+
+    @include mq(600px){
+     .img-container{
+        gap: 20px;
+        img{
+            width: 20%;
+        }
+     }
     }
-    .show{
-       
-    }
- 
 }

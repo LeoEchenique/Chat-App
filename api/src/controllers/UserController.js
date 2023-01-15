@@ -15,25 +15,47 @@ module.exports = {
     const password = await encryptPassword(passwordTBhash);
     try {
       let tbFound = await User.findOne({
-        $or: [{ username }, { email },]
-      })
+        $or: [{ username }, { email }],
+      });
       if (tbFound !== null) {
-        if (tbFound.username === username && tbFound.email === email) throw new Error("Username and Email already taken");
+        if (tbFound.username === username && tbFound.email === email)
+          throw new Error("Username and Email already taken");
         if (tbFound.email === email) throw new Error("Email already taken");
-        if (tbFound.username === username) throw new Error("Username already taken");
+        if (tbFound.username === username)
+          throw new Error("Username already taken");
       }
       let user = await User.create({
-        username,
-        email,
-        password,
+        profile: {
+          username: username,
+          email,
+          password,
+        },
       });
+
       return user;
     } catch (error) {
       throw new Error(error.message);
     }
   },
-  postAvatar: async (avatar, id) => {
-    let user = await User.findOneAndUpdate(id, avatar, { new: true });
+  putUserAvatar: async (avatar, id) => {
+    let user = await User.findOneAndUpdate(
+      { _id: id },
+      { $set: { "profile.avatar": avatar }, "profile.isActive": true },
+      {
+        new: true,
+      }
+    );
+
+    return user.profile;
+  },
+  getById: async (id) => {
+    let user = await User.findOne(
+      { id },
+      {
+        "profile.password": 1, // this second object now is like the properties that you only want to retrieve
+        _id: 0,
+      }
+    );
     return user;
   },
 };
