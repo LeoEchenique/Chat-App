@@ -1,6 +1,16 @@
 const router = require("express").Router();
 const usertCtrl = require("../../controllers/UserController");
 
+router.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    let signUser = await usertCtrl.logUser(username, password);
+    res.send(signUser);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
 router.post("/register", async (req, res) => {
   const { username, password, email } = req.body;
 

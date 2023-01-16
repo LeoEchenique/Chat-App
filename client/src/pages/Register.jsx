@@ -42,9 +42,8 @@ function Register({ props }) {
               onSubmit={async (values, actions) => {
                 await axios.post(`${instance}/log/register`, values).then(
                   (res) => {
-                    console.log();
-                    return res.status === 200
-                      ? navigate(`/avatar/${res.data._id}`)
+                    return res.status === 200 //-> res.data = access token with signed info
+                      ? navigate(`/avatar/${res.data._id}`) // -> bad, now API returns a token so decode that and you will get the id
                       : null;
                   }
                   // handleLog(res.data)
@@ -148,7 +147,10 @@ function Register({ props }) {
               initialValues={initialSignIn}
               validationSchema={logginSchema}
               onSubmit={(values, actions) => {
-                console.log(values);
+                axios
+                  .post(`${instance}/log/login`, values)
+                  .then((res) => console.log(res.data)); //--> access token
+
                 actions.resetForm();
               }}
             >
