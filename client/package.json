@@ -16,6 +16,7 @@
     "react-spinners": "^0.13.7",
     "react-toastify": "^9.1.1",
     "sass": "^1.56.2",
+    "socket.io-client": "^4.5.4",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
