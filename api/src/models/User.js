@@ -30,43 +30,22 @@ const userSchema = new mongoose.Schema({
       default: "false",
     },
   },
-  contacts: {
-    request: [
-      {
-        to_id: {
-          type: String,
-        },
+  contact_request: [
+    {
+      sended_to: {
+        type: String,
+        default: undefined,
       },
-    ],
-    incoming_request: [
-      {
-        from_id: {
-          type: String,
-        },
+      incoming_from: {
+        type: String,
+        default: undefined,
       },
-    ],
-    accepted_request: [
-      {
-        of_id: {
-          type: String,
-        },
+      status_request: {
+        type: String,
+        enum: ["Pending", "Accepted", "Rejected"],
       },
-    ],
-    rejected_request: [
-      {
-        of_id: {
-          type: String,
-        },
-      },
-    ],
-    pending_request: [
-      {
-        from_id: {
-          type: String,
-        },
-      },
-    ],
-  },
+    },
+  ],
 });
 userSchema.virtual("contactInfo").get(function () {
   //to call this get is just by his name  -> user.contactInfo

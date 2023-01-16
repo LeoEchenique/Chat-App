@@ -50,11 +50,11 @@ module.exports = {
   },
   getById: async (id) => {
     let user = await User.findOne(
-      { id },
-      {
-        "profile.password": 1, // this second object now is like the properties that you only want to retrieve
-        _id: 0,
-      }
+      { _id: id }
+      // {
+      //   "profile.password": 1, // this second object now is like the properties that you only want to retrieve
+      //   _id: 0,
+      // }
     );
     return user;
   },
