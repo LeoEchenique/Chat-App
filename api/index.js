@@ -32,7 +32,7 @@ app.listen(process.env.PORT || 3001, () =>
 );
 
 server.listen(3002, () =>
-  console.log(`server listening on port ${process.env.PORT}`)
+  console.log(`server listening on port 3002`)
 );
 
 io.on("connection", (socket) => {
