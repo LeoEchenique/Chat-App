@@ -27,7 +27,11 @@ mongoose
   })
   .then(() => console.log("mongoDB connected"));
 
-server.listen(process.env.PORT || 3001, () =>
+app.listen(process.env.PORT || 3001, () =>
+  console.log(`server listening on port ${process.env.PORT}`)
+);
+
+server.listen(3002, () =>
   console.log(`server listening on port ${process.env.PORT}`)
 );
 
@@ -35,6 +39,7 @@ io.on("connection", (socket) => {
   // socket listener
   console.log(`socket ${socket.id} has entered`);
   socket.on("new_message", (data) => {
+    console.log("new message");
     socket.broadcast.emit("new_message", data); // on new message this will return that to all users connected to the socket -> need to change this to be more private
   });
 }); // when someone connects to the socket this is executed
