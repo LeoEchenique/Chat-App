@@ -9,4 +9,19 @@
   display: inline-block;
   height: 100vh;
   width: 100vw;
+  .chat-area{
+    border: 2px solid yellow;
+    overflow: auto;
+    overflow-anchor: auto;
+    height: max-content;
+    flex-direction: column;
+    height: 36rem;
+    width: 70rem;
+    display: flex;
+    margin: auto;
+    margin-top: 5rem;
+
+
+  }
+ 
 }

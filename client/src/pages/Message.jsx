@@ -2,8 +2,8 @@ import React from "react";
 
 function Message({ message }) {
   return (
-    <div>
-      <h1>{message}</h1>
+    <div className={message.sender}>
+      <h1>{message.content}</h1>
     </div>
   );
 }
