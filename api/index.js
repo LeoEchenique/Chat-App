@@ -4,6 +4,7 @@ const app = express();
 const routes = require("./src/routes/index");
 require("dotenv").config();
 const cors = require("cors");
+const { isTokenValid } = require("./src/utils/jwt");
 app.use(cors());
 app.use(express.json());
 
@@ -31,15 +32,39 @@ app.listen(process.env.PORT || 3001, () =>
   console.log(`server listening on port ${process.env.PORT}`)
 );
 
-server.listen(3002, () =>
-  console.log(`server listening on port 3002`)
-);
+server.listen(3002, () => console.log(`server listening on port 3002`));
 
-io.on("connection", (socket) => {
-  // socket listener
-  console.log(`socket ${socket.id} has entered`);
-  socket.on("new_message", (data) => {
-    console.log("new message");
-    socket.broadcast.emit("new_message", data); // on new message this will return that to all users connected to the socket -> need to change this to be more private
+let socketIds = {};
+io.on("connection", async (socket) => {
+  socket.on("online", (username) => {
+    let { token } = isTokenValid(username);
+
+    if (token) socketIds[token] = socket.id;
+    console.log(socket.id, "is online: ", socketIds);
   });
-}); // when someone connects to the socket this is executed
+
+  socket.on("new_message", (message) => {
+    // avery time you can scope the value or the id of the current socket that dispatchs the event from the front
+    // Look up the recipient's socket ID using the stored mapping
+    let { token } = isTokenValid(message.fromId);
+    const recipientSocketId = socketIds[message.toId];
+    console.log(socketIds);
+    console.log(recipientSocketId);
+
+    // Send the message to the recipient
+    // io was always the instance, that was the main error
+    // socket is ALWAYS linked to the user who dispatchs the user. io is who has all the data to send
+    io.to(recipientSocketId).emit("message", {
+      msg: message.text,
+      from: token,
+    });
+    /*  socket.broadcast.emit("new_message", {
+      // in every message you already have the socket.id that sends dispatchs the event
+      msg: data.text,
+      from: socket.id,
+    }); */
+  });
+  socket.on("disconnect", (socket) => {
+    console.log(socket, "is offline");
+  });
+});
