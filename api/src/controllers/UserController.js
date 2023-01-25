@@ -1,43 +1,35 @@
 const User = require("../models/User");
-const bcrypt = require("bcrypt");
-var jwt = require("jsonwebtoken");
+const { encryptPassword, comparePassword } = require("../utils/bcrypt");
+const { isTokenValid, sign } = require("../utils/jwt");
 
-const encryptPassword = async (password) => {
-  const salt = await bcrypt.genSalt(10);
-  return await bcrypt.hash(password, salt);
-};
-
-const comparePassword = async (inputPassword, password) => {
-  return await bcrypt.compare(inputPassword, password);
-};
-const logUser = async (name, password) => {
+const logUser = async (name, password, id) => {
   //"isActive" should be a virtual?
   // need to update "isActive" prop to true
-  let user = await User.findOne({ "profile.username": name });
-  if (!user) throw new Error("Username doesn't exist");
-  let { avatar, username, email, isActive } = user.profile;
-  let payload = {
-    id: user._id,
-    avatar,
-    username,
-    email,
-    isActive,
-  };
-  let isPassword = await comparePassword(password, user.profile.password);
-  if (isPassword) {
-    user.profile.isActive = true;
-    user.save();
-    let token = jwt.sign(payload, process.env.JWT_KEY);
+  if (id) {
+    let token = sign(id, process.env.JWT_KEY);
     return token;
-  } else throw new Error("Incorrect password");
+  } else {
+    let user = await User.findOne({ "profile.username": name });
+    if (!user) throw new Error("Username doesn't exist");
+    let isPassword = await comparePassword(password, user.profile.password);
+    if (isPassword) {
+      user.profile.isActive = true;
+      user.save();
+      let token = sign({ token: user._id }, process.env.JWT_KEY);
+      console.log("token for the logged user: ", token);
+      return token;
+    } else throw new Error("Incorrect password");
+  }
 };
 
 const postUser = async (username, passwordTBhash, email) => {
   const password = await encryptPassword(passwordTBhash);
+
   try {
     let tbFound = await User.findOne({
-      $or: [{ username }, { email }],
+      $or: [{ "profile.username": username }, { "profile.email": email }],
     });
+
     if (tbFound !== null) {
       if (
         tbFound.profile.username === username &&
@@ -71,8 +63,8 @@ const putUserAvatar = async (avatar, id) => {
       new: true,
     }
   );
-
-  return user.profile;
+  let logged = await logUser(false, false, user.profile.username);
+  return logged;
 };
 const getById = async (id) => {
   let user = await User.findOne(

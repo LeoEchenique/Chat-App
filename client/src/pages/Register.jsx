@@ -40,16 +40,15 @@ function Register({ props }) {
               initialValues={initialSignUp}
               validationSchema={signUpSchema}
               onSubmit={async (values, actions) => {
-                await axios.post(`${instance}/log/register`, values).then(
-                  (res) => {
+                await axios
+                  .post(`${instance}/log/register`, values)
+                  .then((res) => {
+                    localStorage.setItem("token", res.data);
                     return res.status === 200 //-> res.data = access token with signed info
-                      ? navigate(`/avatar/${res.data._id}`) // -> bad, now API returns a token so decode that and you will get the id
+                      ? // useAuth to start sending http req with access token because is oficially logged after registration
+                        navigate(`/avatar/${res.data}`) // -> nice, now API returns a token so decode that from the server and you will get the id
                       : null;
-                  }
-                  // handleLog(res.data)
-                  /* setLocalStorage to obtain the id in avatar component */
-                  /* another axios PUT req must be made to update "isOnline" property */
-                );
+                  });
                 actions.resetForm();
               }}
             >
@@ -147,10 +146,13 @@ function Register({ props }) {
               initialValues={initialSignIn}
               validationSchema={logginSchema}
               onSubmit={(values, actions) => {
-                axios
-                  .post(`${instance}/log/login`, values)
-                  .then((res) => console.log(res.data)); //--> access token
-
+                axios.post(`${instance}/log/login`, values).then((res) => {
+                  localStorage.setItem("token", res.data);
+                  return res.status === 200 //-> res.data = access token with signed info
+                    ? // useAuth to start sending http req with access token because is oficially logged after registration
+                      navigate(`/chat`) // -> nice, now API returns a token so decode that from the server and you will get the id
+                    : null;
+                });
                 actions.resetForm();
               }}
             >

@@ -6,8 +6,12 @@ export const useSocket = (url) => {
 
   useEffect(() => {
     const socket = io(url);
-    setSocket(socket);
+    if (socket) {
+      socket.emit("online", localStorage.getItem("token"));
+      setSocket(socket);
+    }
     return () => {
+      alert("hi");
       socket.disconnect();
     };
   }, [url]);

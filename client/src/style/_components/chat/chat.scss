@@ -6,9 +6,19 @@
     rgb(99, 47, 71) 36%,
     rgb(59, 77, 102) 68%
   );
-  display: inline-block;
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+   height: 100%;
   width: 100vw;
+    .nav-chat{
+    width: 100vw;
+  }
+
+  .content-chat{
+    display: flex;
+    flex-direction: row;
+ 
+  }
   .chat-area{
     border: 2px solid yellow;
     overflow: auto;

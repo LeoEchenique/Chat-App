@@ -1,11 +1,13 @@
 const router = require("express").Router();
 const usertCtrl = require("../../controllers/UserController");
+const { authenticateReq } = require("../../middlewares/auth");
+//now can pass the middleware to authenticate the req by his access token
 
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
   try {
-    let signUser = await usertCtrl.logUser(username, password);
-    res.send(signUser);
+    let signedUser = await usertCtrl.logUser(username, password);
+    res.send(signedUser);
   } catch (error) {
     res.status(404).send(error.message);
   }
@@ -22,8 +24,11 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.put("/register/avatar", async (req, res) => {
-  const { avatarImg, id } = req.query;
+router.put("/register/avatar", authenticateReq, async (req, res) => {
+  const { avatarImg } = req.body;
+  const { id } = req.user;
+
+  console.log(id, "route");
   try {
     let user = await usertCtrl.putUserAvatar(avatarImg, id);
     return res.send(user);
@@ -32,7 +37,7 @@ router.put("/register/avatar", async (req, res) => {
   }
 });
 
-router.get("/user/", async (req, res) => {
+router.get("/user/", authenticateReq, async (req, res) => {
   // this route should belong to another route file
   let { id } = req.query;
   try {
