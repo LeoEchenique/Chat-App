@@ -1,10 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AvatarGenerator } from "random-avatar-generator";
 import RingLoader from "react-spinners/RingLoader";
-import { instance } from "../instance/instance";
+/* import { instance } from "../instance/instance"; */
+import { auth_instance } from "../instance/instance";
 import axios from "axios";
+import Avatars from "../components/Avatars";
 
 function Avatar({ props }) {
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ function Avatar({ props }) {
   const [avatar, setAvatar] = useState([]);
   const generator = new AvatarGenerator();
   const [reloadButton, setReloadButton] = useState("hide");
-  let { id } = useParams();
+
   const generateAvatar = async () => {
     let imgs = [];
     let i = 0;
@@ -33,11 +35,13 @@ function Avatar({ props }) {
   }, []);
 
   const saveAvatarProfile = async (avatarImg) => {
-    //axios.post to save image on user and finally redirect to chat
-    // use instance file to export endpoint http
-    axios
-      .put(`${instance}/log/register/avatar?avatarImg=${avatarImg}&id=${id}`)
-      .then((res) => (res.status === 200 ? navigate("/chat") : null));
+    //axios.post to save image on user and finally redirect to chat or dashboard
+    // auth_instance now works so need to change the endpoint as well
+    auth_instance(localStorage.getItem("token"))
+      .put(`/log/register/avatar`, { avatarImg })
+      .then((res) => {
+        return res.status === 200 ? navigate("/chat") : null;
+      });
   };
   return (
     <div className="avatar-container">
@@ -46,16 +50,7 @@ function Avatar({ props }) {
       </div>
       <div className="img-container">
         {avatar?.length && loader === false ? (
-          avatar.map((avatar, i) => {
-            return (
-              <img
-                src={avatar}
-                key={i}
-                alt="img"
-                onClick={() => saveAvatarProfile(avatar)}
-              />
-            );
-          })
+          <Avatars avatars={avatar} saveAvatarProfile={saveAvatarProfile} />
         ) : (
           <>
             <RingLoader size={150} color={"#ffff"} />
