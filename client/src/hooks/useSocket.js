@@ -7,11 +7,10 @@ export const useSocket = (url) => {
   useEffect(() => {
     const socket = io(url);
     if (socket) {
-      socket.emit("online", localStorage.getItem("token"));
-      setSocket(socket);
+      socket.emit("online", localStorage.getItem("token")); // when is connected to the server adds a socketIds object into the socket connection with the server
+      setSocket(socket); // object socketIds will be: { user_id : socket.id}
     }
     return () => {
-      alert("hi");
       socket.disconnect();
     };
   }, [url]);

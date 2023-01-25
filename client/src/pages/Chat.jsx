@@ -18,9 +18,6 @@ function Chat() {
       content: "",
     },
   ]);
-  // la onda es que cada persona que esté activa se una a un socket y que el id cambie por el suyo
-  // entonces cuando envias un mensaje a alguien se lo mandas a su id y puede recibirlo porque VOS te unis A SU socket
-  // si te envían un mensaje VOS te unis a SU socket
   const scrollToBottom = () => {
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   };
@@ -49,7 +46,7 @@ function Chat() {
             content: msg.msg,
           },
         ]);
-        setToId(msg.from);
+        setToId(msg.from); // to automatically enabled chat we set where to sent the msg, this is also implemented when you select a user that you want to send a msg
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,8 +59,9 @@ function Chat() {
     e.preventDefault();
     if (!text.length) return;
     socket.emit("new_message", {
+      // from id is needed for the comment above.
       text,
-      toId,
+      toId, // used to access the correct user to send the msg
       fromId: localStorage.getItem("token"),
     });
     setChatResponse((prev) => [

@@ -38,22 +38,18 @@ let socketIds = {};
 io.on("connection", async (socket) => {
   socket.on("online", (username) => {
     let { token } = isTokenValid(username);
-
-    if (token) socketIds[token] = socket.id;
-    console.log(socket.id, "is online: ", socketIds);
+    if (token) socketIds[token] = socket.id; // socketIds will contains all the connected users
+    console.log(socket.id, "is online: ");
   });
 
   socket.on("new_message", (message) => {
-    // avery time you can scope the value or the id of the current socket that dispatchs the event from the front
+    // every time you can scope the value or the id of the current socket that dispatchs the event from the front
     // Look up the recipient's socket ID using the stored mapping
     let { token } = isTokenValid(message.fromId);
     const recipientSocketId = socketIds[message.toId];
-    console.log(socketIds);
-    console.log(recipientSocketId);
-
     // Send the message to the recipient
     // io was always the instance, that was the main error
-    // socket is ALWAYS linked to the user who dispatchs the user. io is who has all the data to send
+    // socket is ALWAYS linked to the user who dispatchs the event. io is who has all the data to send
     io.to(recipientSocketId).emit("message", {
       msg: message.text,
       from: token,
